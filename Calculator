@@ -1,83 +1,113 @@
-<!Doctype html>
 <html>
-
 <head>
-<meta charset="utf-8">
-<title> Arithmetic Calculator </title>
+<title>
+Calculator [welcome to smart calculator] </title>
 </head>
-
-<body>
-
-<p align="center">
-Arithmetic Calculator (Plus / Minus / Multiply / Division)
-</p>
-
-<br>
-<?php
-@$first=$_POST['first'];
-@$second=$_POST['second'];
-if(isset($_POST['plus']))
-{
-$plus=$first+$second;
-echo '<table align="center">
-<tr>
-<td style="color:red;">Answer is: &nbsp;&nbsp;&nbsp;</td>
-<td><input type="text" value="'.$plus.'" readonly/></td>
+<body bgcolor=”#ccc”>
+<form method=”get”>
+<table width=”500″ border=”1px” bgcolor=”#eee” cellpadding=”5px”> <!–Table Start From you can change border or background–>
+<th colspan=”2″ bgcolor=”pink”> <font size=”5″> PHP Calculator</font> </th>
+<tr align=”center” id=”Value”>
+<td>First Value: </td><td> <input type=”text” name=”f_value” id=”value_field” /> </td>
 </tr>
-</table>';
-}
-else if(isset($_POST['minus']))
-{
-$minus=$first-$second;
-echo '<table align="center">
-<tr>
-<td style="color:red;">Answer is: &nbsp;&nbsp;&nbsp;</td>
-<td><input type="text" value="'.$minus.'" readonly/></td>
+<tr align=”center” id=”Value”>
+<td>Second Value: </td>
+<td> <input type=”text” name=”s_value” id=”value_field” /> </td>
 </tr>
-</table>';
-}
-else if(isset($_POST['multiply']))
-{
-$multiply=$first*$second;
-echo '<table align="center">
-<tr>
-<td style="color:red;">Answer is: &nbsp;&nbsp;&nbsp;</td>
-<td><input type="text" value="'.$multiply.'" readonly/></td>
+<tr align=”center” id=”Value”>
+<td >
+Select Operation:
+</td>
+<td >
+<select name=”operation” id=”operation”>
+<option value=””> Select Option</option>
+<option value=”+”>Add (+) </option>
+<option value=”-“>Sub (-) </option>
+<option value=”*”>Mul (*) </option>
+<option value=”/”>Div (/) </option>
+</select>
+</td>
 </tr>
-</table>';
-}
-else if(isset($_POST['divide']))
-{
-$divide=$first/$second;
-echo '<table align="center">
-<tr>
-<td style="color:red;">Answer is: &nbsp;&nbsp;&nbsp;</td>
-<td><input type="text" value="'.$divide.'" readonly/></td>
-</tr>
-</table>';
-}
-?>
-
-<form action="" method="post">
-<table align="center">
-<tr>
-<td> First Value </td>
-<td><input type="text" name="first" /></td>
-</tr>
-<tr>
-<td> Second Value </td>
-<td><input type="text" name="second" /></td>
-</tr>
-</table>
-<table align="center">
-<tr>
-<td><input type="submit" name="plus" value="+"></td>
-<td><input type="submit" name="minus" value="-"></td>
-<td><input type="submit" name="multiply" value="*"></td>
-<td><input type="submit" name="divide" value="/"></td>
-</tr>
+<tr><td colspan=”2″ align=”center”><Input Type=”submit” name=”submit” value=”Calculate” id=”calculator”/> </td></tr>
+<tr align=”center”> <td id=”Value”>Your Result:-</td><td id=”result”><?php cal(); ?></td> </tr>
 </table>
 </form>
+<!–styling code is here Paste it in head section–>
+<style rel=”stylesheet” type=”text/css”>
+#value_field{
+height:30px;
+border-radius:5px;
+}
+#value{
+font-size:20px;
+font-weight:bold;
+}
+#operation{
+height:30px;
+border-radius:5px;
+}
+#calculator{
+height:30px;
+width:85px;
+background:#A4A4A4;
+color:white;
+border:1px solid #ccc;
+border-bottom:3px solid #5B5B5B;
+}
+#calculator:hover{
+background:#B2B2B2;
+}
+#result{
+color:#E30659;
+font-size:21px;
+font-family:Geneva, Arial, Helvetica, sans-serif;
+}
+</style>
 
 </body>
 </html>
+<?php
+function cal(){
+if(isset($_GET[‘submit’])){
+$f_value=$_GET[‘f_value’];
+$s_value=$_GET[‘s_value’];
+$opration=$_GET[‘operation’];
+if (is_numeric($f_value)) {
+if (is_numeric($s_value)) {
+if($opration==””){
+echo “<script>alert(‘Choose Operation’); </script>”;
+exit();
+}
+else if ($opration==”+”){
+$adding= $f_value +$s_value;
+echo “<b>Add</b> “.$f_value.”+”.$s_value.”= <b>”. $adding.”</b>”;
+exit();
+}
+else if ($opration==”-“){
+$sub= $f_value -$s_value;
+echo “<b>Subtract</b> “.$f_value.”-“.$s_value.”= <b> “. $sub.”</b>”;
+exit();
+}
+else if ($opration==”*”){
+$mul= $f_value*$s_value;
+echo “<b>Multiply </b>”.$f_value.”*”.$s_value.”= <b>”. $mul.”</b>”;
+exit();
+}
+else if ($opration==”/”){
+$div= $f_value /$s_value;
+echo “Divide “.$f_value.”/”.$s_value.”= “. $div;
+exit();
+}
+}
+else{
+echo “<script> alert(‘Enter SECOND Numerical Value’);</script>” ;
+}}
+else{
+echo “<script> alert(‘Enter First Numerical Value’);</script>” ;
+}}
+//here is submit condition else
+else{
+echo “Submit Your Detail”;
+}
+}
+?>
